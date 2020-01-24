@@ -13,21 +13,23 @@
 // Boolean          pass_on_game
 // LinkedList<Location> 
 
-bool game[8][8];
+unsigned int game[8][8];
 unsigned int prvX[8][8];
 unsigned int prvY[8][8];
 
-int x_dir = 0;
-int y_dir = 0;
+int xDir;
+int yDir;
 
-int startX = 3;
-int startY = 3;
+int xPos;
+int yPos;
 
-void reset(){                   // Clear Game and make new snake
+int snakeSize;
+
+void setGame(){                   // Clear Game and make new snake
 
 }
 
-void set_direction(){           // Get input and set Direction 
+void setDirection(){           // Get input and set Direction 
 
 }
 
@@ -43,6 +45,41 @@ void update_snake() {
 
 }
 
+bool eatFood() {
+    return false;
+}
+
 void next() {
+    setDirection();
+    int tempX = xPos + xDir;
+    int tempY = yPos + yDir;
+    
+    if(tempY > 7 || tempX > 7)
+        return;
+    
+    game[tempX][tempY] = 1;
+    prvX[tempX][tempY] = xPos;
+    prvY[tempX][tempY] = yPos;
+
+    xPos = tempX;
+    yPos = tempY;
+
+    if (eatFood()) {
+        snakeSize++;
+        return;
+    }
+        
+    for (int i = 1; i < snakeSize; i++)
+    {
+        int x = prvX[tempX][tempY];
+        int y = prvY[tempX][tempY];
+        tempX = x;
+        tempY = y;
+    }
+
+    prvX[tempX][tempY] = 0;
+    prvY[tempX][tempY] = 0;
+    game[tempX][tempY] = 0;
+
 
 }
