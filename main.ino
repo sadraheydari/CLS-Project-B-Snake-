@@ -132,14 +132,27 @@ void next() {
     int tempX = xPos + xDir;
     int tempY = yPos + yDir;
 	
-	if(is_effected[1]){
-		
+	if(game[tempX][tempY]==1){
+		return;	// todo MOEINI
 	}
-	// check for win or lose
-	// ro khodesh bar nagarde
-    
-    if(tempY > 7 || tempX > 7)
-        return;
+	if(is_effected[1]){
+		if(tempX > 7){
+			tempX = 0;
+		}
+		if(tempY < 0){
+			tempY = 7;
+		}
+		if(tempY > 7){
+			tempY = 0;
+		}
+		if(tempY < 0){
+			tempY = 7;
+		}
+	}else{
+		if(tempX > 7 || tempX < 0 || tempY > 7 || tempY < 0){
+			return;	// todo MOEINI
+		}
+	}
     
     game[tempX][tempY] = 1;
     prvX[tempX][tempY] = xPos;
