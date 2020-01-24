@@ -26,7 +26,35 @@ int yPos;
 int snakeSize;
 
 void setGame(){                   // Clear Game and make new snake
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            game[i][j] = 0;
+            prvX[i][j] = 0;
+            prvY[i][j] = 0;
+        }
+    }
 
+    xDir = 1;
+    yDir = 0;
+
+    xPos = 3;
+    yPos = 2;
+
+    snakeSize = 3;
+
+    game[3][2] = 1;
+    prvX[3][2] = 2;
+    prvY[3][2] = 2;
+
+    game[2][2] = 1;
+    prvX[2][2] = 1;
+    prvY[2][2] = 2;
+
+    game[1][2] = 1;
+    
+    
 }
 
 void setDirection(){           // Get input and set Direction 
@@ -41,8 +69,18 @@ void create_random_item() {
 
 }
 
-void update_snake() {
+void removeLastSnakePart(int tempX, int tempY){
+    for (int i = 1; i < snakeSize; i++)
+    {
+        int x = prvX[tempX][tempY];
+        int y = prvY[tempX][tempY];
+        tempX = x;
+        tempY = y;
+    }
 
+    prvX[tempX][tempY] = 0;
+    prvY[tempX][tempY] = 0;
+    game[tempX][tempY] = 0;
 }
 
 bool eatFood() {
@@ -69,17 +107,5 @@ void next() {
         return;
     }
         
-    for (int i = 1; i < snakeSize; i++)
-    {
-        int x = prvX[tempX][tempY];
-        int y = prvY[tempX][tempY];
-        tempX = x;
-        tempY = y;
-    }
-
-    prvX[tempX][tempY] = 0;
-    prvY[tempX][tempY] = 0;
-    game[tempX][tempY] = 0;
-
-
+    removeLastSnakePart(tempX, tempY);
 }
