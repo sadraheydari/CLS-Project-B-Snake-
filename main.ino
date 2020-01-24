@@ -25,7 +25,7 @@ int yPos;
 
 int snakeSize;
 
-void setGame(){                   // Clear Game and make new snake
+void setGame(){                 	// Clear Game and make new snake
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 8; j++)
@@ -57,18 +57,6 @@ void setGame(){                   // Clear Game and make new snake
     
 }
 
-void setDirection(){           // Get input and set Direction 
-
-}
-
-void create_random_food(){     // generate random food on empty location
-
-}
-
-void create_random_item() {
-
-}
-
 void removeLastSnakePart(int tempX, int tempY){
     for (int i = 1; i < snakeSize; i++)
     {
@@ -83,14 +71,72 @@ void removeLastSnakePart(int tempX, int tempY){
     game[tempX][tempY] = 0;
 }
 
-bool eatFood() {
-    return false;
+
+void setDirection(){        	  	// Get input and set Direction 
+
 }
+
+int score;
+
+bool eatFood() {					// call when snake eats food
+	if(game[xPos][yPos]==2){
+		score++;
+		create_random_food();
+		return true;
+	}
+	return false;
+}
+
+bool is_effected[2];
+
+void create_random_food(){    		// generate random food on empty location
+	create_random(0,2)
+}
+
+void create_random_item(){			// generate random food on empty location
+	if(is_effected)return;
+	int tmp = random(0,2);
+	create_random(0,3+tmp);
+	is_effected[tmp]=1;
+}
+
+void delete_random_item(){
+	creat_random(2,0)
+	creat_random(3,0)
+}
+
+void create_random(int val1,int val2){		// put val2 instead of a random val1
+	int init = random(0,64)
+	bool flag = false;
+	for(int i=init;i<64;i++){
+		if(game[init/8][init%8]==val1){
+			game[init/8][init%8]=val2;
+			flag = true;
+			break;
+		}
+	}
+	if(!flag){
+		for(int i=init;i>=0;i--){
+			if(game[init/8][init%8]==val1){
+			game[init/8][init%8]=val2;
+			flag = true;
+			break;
+			}
+		}
+	}
+}
+
 
 void next() {
     setDirection();
     int tempX = xPos + xDir;
     int tempY = yPos + yDir;
+	
+	if(is_effected[1]){
+		
+	}
+	// check for win or lose
+	// ro khodesh bar nagarde
     
     if(tempY > 7 || tempX > 7)
         return;
